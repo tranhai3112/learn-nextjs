@@ -3,6 +3,8 @@ import styles from './page.module.css'
 import { PostProvider } from './_context/PostProvicer';
 import Users from './_components/Users';
 import { Suspense } from 'react';
+import { preload } from './_utils/preloadPost';
+import Post from './_components/Post';
 
 export default function Home() {
   const postReq = fetch('http://localhost:3000/api/posts', {
@@ -11,6 +13,7 @@ export default function Home() {
   const userReq = fetch('http://localhost:3000/api/users', {
     cache: "no-cache"
   }).then(res => res.json())
+  preload("1")
   // .then((res) => { // need js to perform error.tsx
   //   throw new Error("ERROR")
   // })
@@ -36,6 +39,11 @@ export default function Home() {
         <div>
           <Suspense fallback={<div>loading users</div>}>
             <Users />
+          </Suspense>
+        </div>
+        <div>
+          <Suspense fallback={<div>loading post id: 1</div>}>
+            <Post/>
           </Suspense>
         </div>
       </PostProvider>
