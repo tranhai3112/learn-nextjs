@@ -6,7 +6,7 @@ export const preload = (id: string) => {
 }
  
 export const getPost = cache(async (id: string) => {
-    const res = await fetch('http://localhost:3000/api/posts/1', {
+    const res = await fetch(`http://localhost:3000/api/posts/${id}`, {
         cache: "no-cache"
       }).then(res => res.json())
       return res;
